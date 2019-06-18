@@ -20,6 +20,7 @@ public class HydrateStream {
 				  .master("local[4]")
 				  .appName("HydrateStream")
 				  .getOrCreate();
+//		hi
 		
 		spark.sparkContext().setLogLevel("WARN");
 		
