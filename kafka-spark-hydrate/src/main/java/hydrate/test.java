@@ -9,9 +9,10 @@ import java.util.concurrent.Future;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class test {
-	private static final int numThreads = 1;
+	private static final int numThreads = 4;
 	private static String URL = "http://192.168.158.1:8080/demo/user";
 	public static Iterator calc(Iterator input) throws Exception {
 		
@@ -77,8 +78,7 @@ public class test {
 			this.url = url;
 		}
  
-		@Override
-		public String call() throws Exception {
+		public String call() throws Exception{
  
 			String result="";
 			
@@ -92,8 +92,15 @@ public class test {
  
 				code = connection.getResponseCode();
 				if (code == 200) {
-					result = "-> Green <-\t" + "Code: " + code;
-					;
+					Scanner sc = new Scanner(siteURL.openStream());
+					String inline="";
+					while(sc.hasNext())
+					{
+						inline+=sc.nextLine();
+					}
+					System.out.println("\nJSON data in string format");
+					System.out.println(inline);
+					sc.close();
 				} else {
 					result = "-> Yellow <-\t" + "Code: " + code;
 				}
