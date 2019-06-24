@@ -1,8 +1,12 @@
+
 package consumer;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.apache.spark.api.java.function.MapPartitionsFunction;
 import org.apache.spark.sql.Dataset;
@@ -12,17 +16,18 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 
+import hydrate.*;
 
-public class HydrateStream {
+class HydrateStream {
 
-	public static void main(String[] args) throws StreamingQueryException {
+	public static void main(String[] args) throws Exception {
 		
 		SparkSession spark = SparkSession
 				  .builder()
 				  .master("local[4]")
 				  .appName("HydrateStream")
 				  .getOrCreate();
-//		hi
+
 		
 		spark.sparkContext().setLogLevel("WARN");
 		
@@ -30,28 +35,21 @@ public class HydrateStream {
 				  .readStream()
 				  .format("kafka")
 				  .option("kafka.bootstrap.servers", "localhost:9092")
-				  .option("subscribe", "hitest")
+				  .option("subscribe", "hellokafka")
 				  .load();
 		
-		df.mapPartitions(
+		StreamingQuery query=df.selectExpr("CAST(value AS STRING)").mapPartitions(
 				new MapPartitionsFunction() {
 		            List<String> result = new ArrayList<String>();
 
 					public Iterator call(Iterator input) throws Exception {
+						
+						//if(input.hasNext())
+		                //System.out.println(input.next());
+		                Iterator it = test.calc(input);
+		               
+		                return it;
 
-		                // int curMax=-1;
-		                StringBuilder sb = new StringBuilder();
-		                
-		                while (input.hasNext()) {
-		                	// System.out.println("data = " + input.next());
-		                	sb.append(input.next() + " ; ");
-		                	
-		                }
-		                System.out.println("data = " + sb.toString());
-		                
-		                return result.iterator();
-
-		            						//return null;
 					}
 
 		           
@@ -65,13 +63,12 @@ public class HydrateStream {
 		
 		Dataset<Row> df2 = df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)");
 				
-		StreamingQuery query = df2.writeStream()
+		StreamingQuery query_2 = df2.writeStream()
 			.outputMode("append")
 			.format("console")
 			.start();
 		
 		query.awaitTermination();
-
+		query_2.awaitTermination();
 	}
-
 }
