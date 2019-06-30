@@ -11,11 +11,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-public class test {
+public class Test {
 	private static final int numThreads = 4;
 	private static String URL = "http://192.168.158.1:8080/demo/user";
 	
-	public static Iterator calc(Iterator input) throws Exception {
+	public Iterator calc(Iterator input) throws Exception {
 		
 		//long pid = getPID();
 		//System.out.println(pid);

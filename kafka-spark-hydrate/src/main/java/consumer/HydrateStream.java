@@ -47,6 +47,7 @@ class HydrateStream {
 					public Iterator call(Iterator input) throws Exception {
 						//if(input.hasNext())
 		                //System.out.println(input.next());
+						Test test = new Test(); 
 		                Iterator itrResult = test.calc(input);
 		                return itrResult;
 					}
