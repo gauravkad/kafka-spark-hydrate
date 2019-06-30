@@ -38,21 +38,19 @@ class HydrateStream {
 				  .option("subscribe", "hellokafka")
 				  .load();
 		
-		StreamingQuery query=df.selectExpr("CAST(value AS STRING)").mapPartitions(
-				new MapPartitionsFunction() {
+		StreamingQuery query = df
+				.selectExpr("CAST(value AS STRING)")
+				.mapPartitions(new MapPartitionsFunction() {
+					
 		            List<String> result = new ArrayList<String>();
 
 					public Iterator call(Iterator input) throws Exception {
-						
 						//if(input.hasNext())
 		                //System.out.println(input.next());
-		                Iterator it = test.calc(input);
-		               
-		                return it;
-
+		                Iterator itrResult = test.calc(input);
+		                return itrResult;
 					}
 
-		           
 		        }, Encoders.STRING()
 				).writeStream()
 		.outputMode("append")

@@ -11,11 +11,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-public class test {
+public class HydrateUrl {
 	private static final int numThreads = 4;
-	private static String URL = "http://192.168.158.1:8080/demo/user";
+	// private static String URL = "http://192.168.158.1:8080/demo/user";
 	
-	public static Iterator calc(Iterator input) throws Exception {
+	public static Iterator<String> processUrlList(Iterator<String> input) throws Exception {
 		
 		//long pid = getPID();
 		//System.out.println(pid);
@@ -71,7 +71,7 @@ public class test {
 		return result.iterator();
 	}
  
-	public static class CallableUrl implements Callable {
+	public static class CallableUrl implements Callable<String> {
 		
 		private final String url;
 		 
