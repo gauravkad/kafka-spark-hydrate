@@ -52,7 +52,7 @@ public class Test {
 		List<String> result = new ArrayList<String>();
 		for(Future<String> fut : list){
 			try{
-					System.out.println(fut.get());
+					//System.out.println(fut.get());
 					result.add(fut.get());
 			}
 			catch(InterruptedException e){                                               
@@ -99,8 +99,9 @@ public class Test {
 					{
 						inline+=sc.nextLine();
 					}
-					System.out.println("\nJSON data in string format");
-					System.out.println(inline);
+					//System.out.println("\nJSON data in string format");
+					//System.out.println(inline);
+					result=inline;
 					sc.close();
 				} else {
 					result = "-> Yellow <-\t" + "Code: " + code;
@@ -110,7 +111,7 @@ public class Test {
 				result = "-> Red <-\t" + "Wrong domain - Exception: " + e.getMessage();
  
 			}
-			return (url + "\t\tStatus:" + result);
+			return (/*url + "\t\tStatus:" + */result);
 		}
 	}
 	
