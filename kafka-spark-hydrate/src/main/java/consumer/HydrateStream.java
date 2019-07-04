@@ -54,8 +54,10 @@ class HydrateStream {
 
 		        }, Encoders.STRING()
 				).writeStream()
-		.outputMode("append")
-		.format("console")
+		.format("kafka")
+        	.option("checkpointLocation", "checkpoint")
+		.option("kafka.bootstrap.servers", "localhost:9092")
+		.option("topic", "xyz")	
 		.start();
 				// (MapPartitionsFunction <Iterator<Row>,Iterator<U>>) x -> x {x}, Encoder<U>				);
 		
